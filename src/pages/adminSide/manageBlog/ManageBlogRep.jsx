@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
+import useAuth from '../../../hooks/useAuth';
 
-const ManageBlog = () => {
+const ManageBlogRep = () => {
     const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
 
 
     const { data: contents = [], refetch } = useQuery({
@@ -18,23 +20,7 @@ const ManageBlog = () => {
     })
 
 
-    const handleStatusChange = (data) => {
-        const id = data?._id;
-        const status = !data?.status;
-        const newData = { id, status }
-        const toastId = toast.loading("Status Changing...");
-        axiosPublic.put('/blog/status', newData)
-            .then(res => {
-                if (res) {
-                    toast.success("Status has changed!!", { id: toastId });
-                }
-                refetch()
-            })
-            .catch(err => {
-                toast.error(err?.message, { id: toastId });
-            })
-
-    };
+    const filteredBlogs = contents?.filter(item => item.author_email == user?.email);
 
 
 
@@ -89,7 +75,7 @@ const ManageBlog = () => {
                 </thead>
                 <tbody>
                     {
-                        contents && contents?.map((content) => (
+                        filteredBlogs && filteredBlogs?.map((content) => (
                             <tr key={content?._id} className="text-center">
                                 <td className="px-4 py-2 border font-semibold">{content?.title}</td>
                                 <td className="px-4 py-2 border">
@@ -105,18 +91,13 @@ const ManageBlog = () => {
                                 <td className="px-4 py-2 border font-semibold">{content?.author_email}</td>
 
                                 <td className="font-bold">
-                                    <div className="form-control">
-                                        <div className="flex items-center gap-2 justify-center">
-                                            <label className="label cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    className="toggle toggle-success toggle-sm"
-                                                    checked={content?.status || false}
-                                                    onChange={() => handleStatusChange(content)}
-                                                />
-                                            </label>
-                                        </div>
-                                    </div>
+                                    {
+                                        content?.status ?
+                                            <span className='text-green-600 font-bold'>Live</span>
+                                            :
+                                            <span className='text-red-600 font-bold'>Under Review</span>
+
+                                    }
                                 </td>
 
                                 <td className="px-4 py-2 border flex justify-center  ">
@@ -141,4 +122,4 @@ const ManageBlog = () => {
     );
 };
 
-export default ManageBlog;
+export default ManageBlogRep;

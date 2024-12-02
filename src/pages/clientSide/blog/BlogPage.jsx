@@ -10,7 +10,7 @@ const BlogPage = () => {
     const [firstCardId, setFirstCardId] = useState(0);
     const [cardPerSlice, setCardPerSlice] = useState(6);
     const axiosPublic = useAxiosPublic();
-    const { data: blogs = [], refetch, isLoading } = useQuery({
+    const { data: allBlogs = [], refetch, isLoading } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
             const res = await axiosPublic.get('/blog');
@@ -20,6 +20,10 @@ const BlogPage = () => {
     if (isLoading) {
         return <Loading />
     }
+
+    const blogs = allBlogs?.filter(item => item.status === true);
+
+
     let showingBlogs = blogs.map((data, idx) => {
         const newData = {
             ...data,
@@ -43,6 +47,8 @@ const BlogPage = () => {
             setFirstCardId(newFirstCardId);
         }
     };
+
+    
 
     return (
         <div className='sm:px-20 px-5 my-10 min-h-screen'>

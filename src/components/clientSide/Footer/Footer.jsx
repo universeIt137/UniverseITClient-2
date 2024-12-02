@@ -70,7 +70,7 @@ const Footer = () => {
                     <nav className='max-w-[220px] text-sm'>
                         <h6 className="footer-title">Contact</h6>
                         <Link to={"/contact-us"}>Contact Us</Link>
-                        <a className="link link-hover  flex gap-2"> <span className='pt-2'><FaLocationDot /></span>House# 39/C (Siraj Convention Centre,Lift 4th floor),Main Road, Block-C,  Aftabnagar, Merul Badda,Dhaka , Dhaka, Bangladesh, 1212</a>
+                        <a className="link link-hover  flex gap-2"> <span className='pt-2'><FaLocationDot /></span>House# 39/C (Siraj Convention Center,Lift 4th floor),Main Road, Block-C,  Aftabnagar, Merul Badda,Dhaka , Dhaka, Bangladesh, 1212</a>
                         <a className="link link-hover flex gap-2">
                             <IoIosMail className="text-xl" />
                             universeitinstitute@gmail.com

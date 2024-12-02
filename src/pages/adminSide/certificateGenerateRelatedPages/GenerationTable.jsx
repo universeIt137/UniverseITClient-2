@@ -81,7 +81,7 @@ const GenerationTable = ({ allData, refetch }) => {
 
                                             className="px-2 py-1 bg-green-500 text-white rounded mr-2"
                                         >
-                                            <Link to={`/dashboard/update-representative/${content?._id}`}>Generate</Link>
+                                            <Link to={`/dashboard/generate-certificate/${content?._id}`}>Generate</Link>
                                         </button>
                                         <button
                                             onClick={() => handleDelete(content?._id)}

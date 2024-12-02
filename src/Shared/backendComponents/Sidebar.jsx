@@ -134,7 +134,8 @@ const Sidebar = () => {
       name: 'Blogs',
       data: <>
         <NavigationItem to="/dashboard/addBlog" icon={MdAddCircle} label="Add Blog" />
-        <NavigationItem to="/dashboard/manageBlog" icon={SiNginxproxymanager} label="Manage Blogs" />
+        
+        <NavigationItem to="/dashboard/manageBlogRep" icon={SiNginxproxymanager} label="Manage Blogs" />
       </>
     },
   ]
