@@ -79,6 +79,8 @@ import ManageGeneration from "../pages/adminSide/certificateGenerateRelatedPages
 import UpdateGeneration from "../pages/adminSide/certificateGenerateRelatedPages/UpdateGeneration";
 import RepresentativeList from './../pages/clientSide/representativePage/RepresentativeList';
 import RepresentativeDetails from "../pages/adminSide/representativeRelatedPages/RepresentativeDetails";
+import ManageBlogRep from "../pages/adminSide/manageBlog/ManageBlogRep";
+import CertificateDownload from "../pages/adminSide/certificateGenerateRelatedPages/CertificateDownload";
 
 
 const BasicRoutes = createBrowserRouter([
@@ -232,6 +234,10 @@ const BasicRoutes = createBrowserRouter([
             {
                 path: "manageBlog",
                 element: <ManageBlog></ManageBlog>
+            },
+            {
+                path: "manageBlogRep",
+                element: <ManageBlogRep></ManageBlogRep>
             },
             {
                 path: "/dashboard/updateBlog/:id",
@@ -402,6 +408,10 @@ const BasicRoutes = createBrowserRouter([
             {
                 path: "update-generation/:id",
                 element: <UpdateGeneration></UpdateGeneration>
+            },
+            {
+                path: "generate-certificate/:id",
+                element: <CertificateDownload></CertificateDownload>
             }
 
 
