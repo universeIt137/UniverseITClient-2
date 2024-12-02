@@ -7,109 +7,105 @@ import {
     View,
     StyleSheet,
     PDFDownloadLink,
+    PDFViewer,
     Image,
 } from '@react-pdf/renderer';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
-// Define styles for the PDF
 const styles = StyleSheet.create({
     page: {
-        padding: 40, // Reduced padding for compact layout
+        padding: 50,
         fontFamily: 'Helvetica',
         position: 'relative',
         backgroundColor: '#ffffff',
     },
-    shapeLeft: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        width: 40,
-    },
-    shapeRight: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        width: 40,
-    },
-    shapeTop: {
+    borderContainer: {
+        borderWidth: 20,
+        borderColor: '#2E7270',
+        height: '100%',
+        width: '100%',
         position: 'absolute',
         top: 0,
         left: 0,
-        right: 0,
-        height: 30, // Reduced height of the top shape
     },
-    shapeBottom: {
+    decorativeBorder: {
         position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 30, // Reduced height of the bottom shape
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 20,
+        borderWidth: 5,
+        borderColor: '#FFD700',
     },
     title: {
-        textAlign: 'center',
-        fontSize: 18, // Reduced font size
+        fontSize: 36,
         fontWeight: 'bold',
-        marginTop: 10, // Reduced margin
+        textAlign: 'center',
+        marginTop: 50,
+        color: '#2E7270',
     },
     subtitle: {
+        fontSize: 20,
         textAlign: 'center',
-        fontSize: 14, // Reduced font size
-        marginBottom: 10, // Reduced margin
+        marginVertical: 15,
+        color: '#333',
     },
     name: {
-        textAlign: 'center',
-        fontSize: 22, // Reduced font size
+        fontSize: 28,
         fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 30,
         color: '#4A90E2',
-        marginVertical: 10, // Reduced margin
     },
     content: {
+        fontSize: 16,
         textAlign: 'center',
-        fontSize: 10, // Reduced font size
-        marginBottom: 20, // Reduced margin
+        marginHorizontal: 40,
+        lineHeight: 1.5,
+        marginBottom: 40,
+        color: '#555',
     },
     logoContainer: {
         position: 'absolute',
-        top: 20, // Adjusted position
-        left: 20,
-        width: 80, // Reduced size
+        top: 30,
+        left: 30,
+        width: 80,
         height: 80,
     },
     qrCode: {
         position: 'absolute',
-        top: 20,
-        right: 20,
-        width: 60, // Reduced size
-        height: 60,
+        top: 30,
+        right: 30,
+        width: 80,
+        height: 80,
     },
-    footerContainer: {
+    footer: {
+        position: 'absolute',
+        bottom: 60,
+        left: 50,
+        right: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 20, // Reduced margin
-        paddingHorizontal: 10,
+        alignItems: 'center',
+        fontSize: 12,
+        color: '#333',
     },
-    footerLeft: {
-        textAlign: 'left',
-        fontSize: 8, // Reduced font size
-    },
-    footerRight: {
-        textAlign: 'right',
-        fontSize: 8, // Reduced font size
+    signatureBlock: {
+        textAlign: 'center',
+        borderTopWidth: 1,
+        borderColor: '#000',
+        paddingTop: 5,
+        marginTop: 10,
     },
 });
 
-// PDF Document Component
-const SingleStudentPDF = ({ data, shapeUrl }) => (
+const SingleStudentPDF = ({ data }) => (
     <Document>
-        <Page size={[595.28, 700]} style={styles.page}>
-            {/* Decorative Borders */}
-            {shapeUrl && <Image src={shapeUrl} style={styles.shapeLeft} />}
-            {shapeUrl && <Image src={shapeUrl} style={styles.shapeRight} />}
-            {shapeUrl && <Image src={shapeUrl} style={styles.shapeTop} />}
-            {shapeUrl && <Image src={shapeUrl} style={styles.shapeBottom} />}
+        <Page size="A4" style={styles.page}>
+            {/* Outer Decorative Border */}
+            <View style={styles.borderContainer}></View>
+            <View style={styles.decorativeBorder}></View>
 
             {/* Logo */}
             {data?.logo_url && <Image src={data.logo_url} style={styles.logoContainer} />}
@@ -117,27 +113,26 @@ const SingleStudentPDF = ({ data, shapeUrl }) => (
             {/* QR Code */}
             {data?.qr_code_url && <Image src={data.qr_code_url} style={styles.qrCode} />}
 
-            {/* Title */}
-            <Text style={styles.title}>CERTIFICATE OF ACHIEVEMENT</Text>
-            <Text style={styles.subtitle}>This certificate is proudly presented to</Text>
+            {/* Certificate Title */}
+            <Text style={styles.title}>Certificate of Excellence</Text>
+            <Text style={styles.subtitle}>This is awarded to</Text>
 
-            {/* Name */}
+            {/* Recipient Name */}
             <Text style={styles.name}>{data?.name}</Text>
 
-            {/* Course and Details */}
+            {/* Details */}
             <Text style={styles.content}>
-                Has successfully completed {data?.hours} hours in the "{data?.course_category}" course on "{data?.course_name}".{'\n'}
-                Student ID: {data?.student_ID}.{' '}
-                From {data?.duration || 'N/A'}.
+                In recognition of successfully completing {data?.hours} hours in the "{data?.course_category}" course titled "{data?.course_name}".
+                This certificate is issued with great appreciation for your hard work and dedication.
             </Text>
 
-            {/* Footer: Date of Issue and Signature */}
-            <View style={styles.footerContainer}>
-                <View style={styles.footerLeft}>
+            {/* Footer */}
+            <View style={styles.footer}>
+                <View>
                     <Text>Date of Issue:</Text>
                     <Text>{data?.date_of_issue || 'N/A'}</Text>
                 </View>
-                <View style={styles.footerRight}>
+                <View style={styles.signatureBlock}>
                     <Text>Authorized Signature</Text>
                     <Text>Universe IT Institute</Text>
                 </View>
@@ -146,7 +141,6 @@ const SingleStudentPDF = ({ data, shapeUrl }) => (
     </Document>
 );
 
-// Certificate Download Component
 const CertificateDownload = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
@@ -159,30 +153,38 @@ const CertificateDownload = () => {
         },
     });
 
-    // Add URL for the decorative shape
-    const shapeUrl = 'https://res.cloudinary.com/dnvmj9pvk/image/upload/v1732435295/certificate-shape_yyzbgi.png'; // Replace with actual path of the uploaded shape.
-
     return (
-        <div className="mx-auto p-6 bg-white shadow-md rounded-lg max-w-2xl">
-            <h1 className="text-2xl font-bold mb-4 text-center">Download Certificate</h1>
+        <div className="mx-auto p-6 bg-gray-100 shadow-md rounded-lg max-w-4xl">
+            <h1 className="text-2xl font-bold mb-4 text-center">View & Download Certificate</h1>
 
             {isLoading ? (
                 <p className="text-center">Loading...</p>
             ) : pdfData ? (
-                <PDFDownloadLink
-                    document={<SingleStudentPDF data={pdfData} shapeUrl={shapeUrl} />}
-                    fileName={`${pdfData.name}_certificate.pdf`}
-                >
-                    {({ loading }) =>
-                        loading ? (
-                            <button className="btn btn-primary" disabled>
-                                Loading PDF...
-                            </button>
-                        ) : (
-                            <button className="btn btn-primary">Download Certificate</button>
-                        )
-                    }
-                </PDFDownloadLink>
+                <>
+                    {/* PDF Viewer */}
+                    <div className="border p-4 rounded-lg mb-4 bg-white">
+                        <PDFViewer style={{ width: '100%', height: '600px' }}>
+                            <SingleStudentPDF data={pdfData} />
+                        </PDFViewer>
+                    </div>
+
+                    {/* Download Link */}
+                    <div className="text-center">
+                        <PDFDownloadLink
+                            document={<SingleStudentPDF data={pdfData} />}
+                            fileName={`${pdfData.name}_certificate.pdf`}
+                        >
+                            {({ loading }) => (
+                                <button
+                                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Loading PDF...' : 'Download Certificate'}
+                                </button>
+                            )}
+                        </PDFDownloadLink>
+                    </div>
+                </>
             ) : (
                 <p className="text-center">Certificate data not found</p>
             )}
