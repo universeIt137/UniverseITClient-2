@@ -81,6 +81,11 @@ import RepresentativeList from './../pages/clientSide/representativePage/Represe
 import RepresentativeDetails from "../pages/adminSide/representativeRelatedPages/RepresentativeDetails";
 import ManageBlogRep from "../pages/adminSide/manageBlog/ManageBlogRep";
 import CertificateDownload from "../pages/adminSide/certificateGenerateRelatedPages/CertificateDownload";
+import AddRepresentative from "../pages/adminSide/representativeRelatedPages/AddRepresentative";
+import RepresentativeRegister from "../pages/clientSide/Register/RepresentativeRegister";
+import Dashboard from "../pages/adminSide/dashboard/Dashbaord";
+import AllBlogsRepresentative from "../pages/adminSide/representativeRelatedPages/blogRelatedPages/AllBlogsRepresentative";
+import PreviewBlogPage from "../pages/adminSide/representativeRelatedPages/blogRelatedPages/PreviewBlogPage";
 
 
 const BasicRoutes = createBrowserRouter([
@@ -171,6 +176,10 @@ const BasicRoutes = createBrowserRouter([
                 element: <Register />
             },
             {
+                path: "rep-register",
+                element: <RepresentativeRegister />
+            },
+            {
                 path: "/contact-us",
                 element: <ContactUsPage/>
             },
@@ -193,6 +202,10 @@ const BasicRoutes = createBrowserRouter([
         children: [
             {
                 path: "/dashboard",
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: "statistics",
                 element: <Profile></Profile>
             },
             {
@@ -236,6 +249,10 @@ const BasicRoutes = createBrowserRouter([
                 element: <ManageBlog></ManageBlog>
             },
             {
+                path: "previewBlog/:id",
+                element: <PreviewBlogPage></PreviewBlogPage>
+            },
+            {
                 path: "manageBlogRep",
                 element: <ManageBlogRep></ManageBlogRep>
             },
@@ -243,6 +260,7 @@ const BasicRoutes = createBrowserRouter([
                 path: "/dashboard/updateBlog/:id",
                 element: <UpdateBlog></UpdateBlog>
             },
+            // homepage content related routes 
             {
                 path: "manageHomepageContent",
                 element: <ManageHomepageContent></ManageHomepageContent>
@@ -388,6 +406,10 @@ const BasicRoutes = createBrowserRouter([
 
             // representative related routes 
             {
+                path: "add-representative",
+                element: <AddRepresentative></AddRepresentative>
+            },
+            {
                 path: "manage-representative",
                 element: <ManageRepresentative></ManageRepresentative>
             },
@@ -399,6 +421,12 @@ const BasicRoutes = createBrowserRouter([
                 path: "details-representative/:id",
                 element: <RepresentativeDetails></RepresentativeDetails>
             },
+
+            {
+                path: "rep-blogs/:email",
+                element: <AllBlogsRepresentative></AllBlogsRepresentative>
+            },
+
             
             // Certification Generation related Routes 
             {

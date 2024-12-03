@@ -86,7 +86,16 @@ const Login = () => {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <p>Don't have an account? <Link to={'/register'}><span className="font-bold underline hover:text-primary">Register</span></Link></p>
+                        <p>Don't have an account?
+                            <Link to={'/register'}>
+                                <span className="font-bold underline hover:text-primary"> Register</span>
+                            </Link>
+                            <br />
+                            <Link to={'/rep-register'}>
+                                <span className="font-bold underline hover:text-primary">Register as Representative</span>
+                            </Link>
+                        </p>
+
                     </div>
                     <div className="flex gap-3 items-center flex-col xs:flex-row">
                         <button className={`${btnStyle}`}>

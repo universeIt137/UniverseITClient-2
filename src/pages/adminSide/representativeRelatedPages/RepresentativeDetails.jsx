@@ -32,7 +32,7 @@ const RepresentativeDetails = () => {
                     profileData.ImageUrl ?
                         <>
                             <div className="avatar">
-                                <div className="rounded-full">
+                                <div className="rounded-full w-32">
                                     <img src={profileData?.ImageUrl} alt="Profile" />
                                 </div>
                             </div>

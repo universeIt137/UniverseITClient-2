@@ -4,16 +4,20 @@ import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
     const axiosPublic = useAxiosPublic();
-    const { data: users = [], refetch, isLoading } = useQuery({
+    const { data: allUsers = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosPublic.get('/users');
             return res.data;
         }
     })
+
+    const users = allUsers.filter(user => !user.hasOwnProperty('representative'));
+    // console.log(users);
     if (isLoading) {
         return ''
     }
@@ -36,23 +40,7 @@ const ManageUsers = () => {
     };
 
 
-    const handleRepresentativeChange = (data) => {
-        const id = data?._id;
-        const representative = !data?.representative;
-        const newData = { id, representative }
-        const toastId = toast.loading("User Role Changing...");
-        axiosPublic.put('/users/role/representative', newData)
-            .then(res => {
-                if (res) {
-                    toast.success("Role has changed!!", { id: toastId });
-                }
-                refetch()
-            })
-            .catch(err => {
-                toast.error(err?.message, { id: toastId });
-            })
 
-    };
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -97,8 +85,8 @@ const ManageUsers = () => {
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Profile</th>
                                 <th>Admin</th>
-                                <th>Representative</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -109,6 +97,14 @@ const ManageUsers = () => {
                                         <td>{index + 1}</td>
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
+                                        <td>
+                                            <button
+
+                                                className="px-2 py-1 bg-blue-500 text-white rounded mr-2"
+                                            >
+                                                <Link to={`/dashboard/details-representative/${item?._id}`}>Profile</Link>
+                                            </button>
+                                        </td>
                                         <td className="font-bold">
                                             <div className="form-control">
                                                 <div className="flex items-center gap-2">
@@ -124,20 +120,7 @@ const ManageUsers = () => {
                                             </div>
                                         </td>
 
-                                        <td className="font-bold">
-                                            <div className="form-control">
-                                                <div className="flex items-center gap-2">
-                                                    <label className="label cursor-pointer">
-                                                        <input
-                                                            type="checkbox"
-                                                            className="toggle toggle-success toggle-sm"
-                                                            checked={item?.representative || false}
-                                                            onChange={() => handleRepresentativeChange(item)}
-                                                        />
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </td>
+
 
 
                                         <td

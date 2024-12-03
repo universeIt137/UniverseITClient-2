@@ -32,9 +32,9 @@ const UpdateBlog = () => {
         console.log(isLoading);
     }, [blogData, isLoading]);
     if (isLoading) {
-        return <Loading/>
+        return <Loading />
     }
-    const { title: incomingTitle, blogImageUrl: incomingBlogImageUrl, date: incomingDate, meta_word: incomingMeta_word, author: incomingAuthor, description: incomingDescription, } = blogData;
+    const { title: incomingTitle, BannerImageUrl: incomingBannerImageUrl, images: incomingImages, youtubeVideo:incomingYoutubeVideo, date: incomingDate, meta_word: incomingMeta_word, author: incomingAuthor, description: incomingDescription, } = blogData;
     const showingData = new Date(incomingDate || 0);
 
     // Format the date as YYYY-MM-DD
@@ -115,43 +115,93 @@ const UpdateBlog = () => {
                                     <p className='text-center text-2xl font-bold py-2'>Update Blog</p>
                                     <form action="" onSubmit={handleSubmit} className='flex flex-wrap -m-2'>
 
-                                        {/* Title  */}
-                                        <div className="p-2 w-1/2">
-                                            <div className="relative">
-                                                <label className="leading-7 text-sm text-gray-600">Blog title</label>
-                                                <input type="text" name="title" defaultValue={incomingTitle} className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        <div className="grid lg:grid-cols-3">
+                                            {/* Title  */}
+                                            <div className="p-2 ">
+                                                <div className="relative">
+                                                    <label className="leading-7 text-sm text-gray-600">Title</label>
+                                                    <input type="text" name="title" defaultValue={incomingTitle} className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        {/* author  */}
-                                        <div className="p-2 w-1/2">
-                                            <div className="relative">
-                                                <label className="leading-7 text-sm text-gray-600">Author Name</label>
-                                                <input type="text" defaultValue={incomingAuthor} name="author" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+
+
+                                            {/* image url  */}
+                                            <div className="p-2 ">
+                                                <div className="relative w-full">
+                                                    <label className="leading-7 text-sm text-gray-600">Blog Banner Image</label><br />
+                                                    <input type="file" name='image' className="file-input file-input-bordered file-input-md w-full" />
+                                                </div>
+
+                                                <div className="avatar">
+                                                    <div className="w-32 rounded">
+                                                        <p>Already uploaded:</p>
+                                                        <img src={incomingBannerImageUrl} />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+
+
+                                            {/* Multiple Image Upload */}
+                                            <div className="p-2 w-full">
+                                                <label className="leading-7 text-sm text-gray-600 font-bold"> Multiple Slider Images</label>
+                                                <input
+                                                    type="file"
+                                                    name="images"
+                                                    multiple
+                                                    // onChange={handleImageChange}
+                                                    className="file-input file-input-bordered file-input-md w-full"
+                                                // disabled={loading} // Disable input during upload
+                                                />
+                                                <div className="flex flex-wrap gap-4 mt-4">
+                                                    {incomingImages?.map((img, index) => (
+                                                        <div key={index} className="relative">
+                                                            <img
+                                                                src={img}
+                                                                alt={`preview-${index}`}
+                                                                className="h-20 w-20 object-cover rounded"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                // onClick={() => removeImage(index)}
+                                                                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600"
+                                                            >
+                                                                ×
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label htmlFor="">Youtube video</label>
+                                                <input type="text" name="youtubeVideo" defaultValue={incomingYoutubeVideo} className="w-full px-4 py-2 border rounded-md" />
+                                            </div>
+
+                                            {/* author  */}
+                                            <div className="p-2 ">
+                                                <div className="relative">
+                                                    <label className="leading-7 text-sm text-gray-600">Author Name</label>
+                                                    <input type="text" defaultValue={incomingAuthor} name="author" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                </div>
+                                            </div>
 
 
 
-                                        {/* Meta keyword  */}
-                                        <div className="p-2 w-1/2">
-                                            <div className="relative ">
-                                                <label className="leading-7 text-sm text-gray-600">Meta Keyword</label>
-                                                <input defaultValue={incomingMeta_word} type="text" name="meta_word" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            {/* Meta keyword  */}
+                                            <div className="p-2 ">
+                                                <div className="relative ">
+                                                    <label className="leading-7 text-sm text-gray-600">Meta Keyword</label>
+                                                    <input defaultValue={incomingMeta_word} type="text" name="meta_word" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        {/* Date  */}
-                                        <div className="p-2 w-1/2">
-                                            <div className="relative">
-                                                <label className="leading-7 text-sm text-gray-600 font-bold">Date</label>
-                                                <input defaultValue={incomingDate} type="date" name="date" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            {/* Date  */}
+                                            <div className="p-2 ">
+                                                <div className="relative">
+                                                    <label className="leading-7 text-sm text-gray-600 font-bold">Date</label>
+                                                    <input defaultValue={incomingDate} type="date" name="date" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        {/* image url  */}
-                                        <div className="p-2 w-1/2">
-                                            <div className="relative w-full">
-                                                <label className="leading-7 text-sm text-gray-600">Blog Banner Image</label><br />
-                                                <input type="file" name='blogImg' className="file-input file-input-bordered file-input-md w-full" />
-                                            </div>
+
                                         </div>
 
 
