@@ -69,7 +69,7 @@ const BlogPage = () => {
             <div className="flex justify-end mb-10">
                 <input
                     type="text"
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring focus:ring-blue-300"
+                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring focus:ring-[#F49401]"
                     placeholder="Search Blogs by Author Name"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -101,7 +101,7 @@ const BlogPage = () => {
                                     key={sidebarBlog._id}
                                     to={`/blogDetails/${sidebarBlog._id}`}
                                 >
-                                    <div className="flex border-2 border-black items-center my-10 rounded-lg p-3 hover:shadow-lg transition">
+                                    <div className="flex  items-center my-10 rounded-lg p-3 border shadow-lg transition">
                                         <img
                                             src={sidebarBlog.BannerImageUrl}
                                             alt={sidebarBlog.title}

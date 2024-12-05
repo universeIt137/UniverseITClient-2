@@ -70,7 +70,7 @@ const ManageBlogRep = () => {
             {/* Dropdown for Status Filter */}
             <div className="mb-4 flex justify-end mr-12 mt-10">
                 <select
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring focus:ring-blue-300"
+                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring focus:ring-[#F49401]"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 >
