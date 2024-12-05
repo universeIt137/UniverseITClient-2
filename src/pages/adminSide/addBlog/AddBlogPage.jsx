@@ -14,6 +14,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const AddBlogPage = () => {
     const axiosPublic = useAxiosPublic();
+
     const { user } = useAuth();
     const [images, setImages] = useState([]); // Array to store uploaded image URLs
 
@@ -103,7 +104,6 @@ const AddBlogPage = () => {
                 .then(res => {
                     if (res) {
                         Swal.fire({
-                            position: "top-end",
                             icon: "success",
                             title: "Blog has been saved",
                             showConfirmButton: false,
