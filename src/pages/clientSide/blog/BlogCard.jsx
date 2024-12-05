@@ -12,7 +12,7 @@ const BlogCard = ({ blog, slide = false }) => {
                 {/* Image Section */}
                 <div className="w-full md:w-1/2">
                     <img
-                        className="w-full h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-lg shadow-lg border-2 border-black"
+                        className="w-full h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-lg shadow-lg "
                         src={BannerImageUrl}
                         alt={title}
                     />
@@ -37,7 +37,7 @@ const BlogCard = ({ blog, slide = false }) => {
 
                     {/* Description */}
                     <div
-                        className="text-gray-600 text-sm md:text-base max-h-[100px] overflow-hidden"
+                        className="text-gray-600  text-sm md:text-base max-h-[100px] overflow-hidden"
                         dangerouslySetInnerHTML={{
                             __html: description.length > 100
                                 ? `${description.slice(0, 100)}...`
@@ -46,7 +46,7 @@ const BlogCard = ({ blog, slide = false }) => {
                     ></div>
 
                     {/* Read More Button */}
-                    <Link to={`/blogDetails/${_id}`}>
+                    <Link className="" to={`/blogDetails/${_id}`}>
                         <ButtonStrong text="Read More" />
                     </Link>
                 </div>
