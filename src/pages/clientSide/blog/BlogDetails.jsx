@@ -42,6 +42,16 @@ const BlogDetails = () => {
                 <div className="lg:flex gap-10">
                     <div className="lg:w-3/4">
                         <BlogSlider blog={blog}></BlogSlider>
+                        <div className='my-7 flex flex-col lg:flex-row lg:justify-between items-center  ' >
+                            <div> <h1 className='lg:text-2xl font-bold ' > Author Name : {blog?.author} </h1> </div>
+                            <div>
+                                <p className='lg:text-xl font-semibold ' >Publish Date : {blog?.date}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 className='lg:text-5xl font-body ' > {blog?.title} </h1>
+                            <p className='lg:text-xl font-body ' > { blog?.meta_word } </p>
+                        </div>
                         <div className='py-10'>
                             <p dangerouslySetInnerHTML={{ __html: blog?.description }} className='px-2 text-xl'>
                             </p>
