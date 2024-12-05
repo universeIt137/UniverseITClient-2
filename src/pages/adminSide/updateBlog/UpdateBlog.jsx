@@ -12,6 +12,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import ButtonStrong from '../../../Shared/Button/ButtonStrong';
 import { uploadImg } from '../../../UploadFile/uploadImg';
 import Loading from '../../../Shared/Loading/Loading';
+import { uploadVideo } from '../../../UploadFile/uploadVideo';
 const UpdateBlog = () => {
     const [tinyDescription, setTinyDescription] = useState('')
     const [incomingImages, setIncomingImages] = useState([]);
@@ -21,6 +22,7 @@ const UpdateBlog = () => {
     const { id } = useParams();
     const [descriptionErr, setDescriptionErr] = useState(false)
     const axiosPublic = useAxiosPublic();
+    const [dataLoading, setDataLoading] = useState(false);
 
     const { data: blogData = {}, refetch: blogDataRefetch, isLoading } = useQuery({
         queryKey: ['blogData', id],
@@ -41,7 +43,7 @@ const UpdateBlog = () => {
     if (isLoading) {
         return <Loading />
     }
-    const { title: incomingTitle, BannerImageUrl: incomingBannerImageUrl, youtubeVideo: incomingYoutubeVideo, date: incomingDate, meta: incomingMeta, author: incomingAuthor, description: incomingDescription, } = blogData;
+    const { title: incomingTitle, BannerImageUrl: incomingBannerImageUrl, youtubeVideo: incomingYoutubeVideo, date: incomingDate, meta_word: incomingMeta, author: incomingAuthor, description: incomingDescription, } = blogData;
     // const showingData = new Date(incomingDate || 0);
 
     // // Format the date as YYYY-MM-DD
@@ -54,15 +56,17 @@ const UpdateBlog = () => {
 
 
     const handleSubmit = async (event) => {
+        setDataLoading(true);
         setTinyDescription(tinyDescription)
         setDescriptionErr(false)
         event.preventDefault();
         const form = event.target;
         const title = form.title.value;
         const blogImage = form.image.files[0];
-        const date = form.date.value
+        const youtubeVideo = form.youtubeVideo.value;
+        const selectedVideo = form.video.files[0];
+        const date = form.date.value;
         const meta_word = form.meta_word.value;
-        const author = form.author.value;
         const description = tinyDescription;
         if (!description) {
             setTinyDescription(tinyDescription)
@@ -76,9 +80,14 @@ const UpdateBlog = () => {
             blogImageUrl = await uploadImg(blogImage);
         }
 
+        let videoUrl = blogData?.videoUrl;
+        if (selectedVideo) {
+            videoUrl = await uploadVideo(selectedVideo);
+        }
 
-        const data = { title, BannerImageUrl: blogImageUrl, meta_word, author, description, date };
-        console.log(data)
+
+        const data = { title, BannerImageUrl: blogImageUrl, images: incomingImages, youtubeVideo, videoUrl, date, meta_word, description };
+        // console.log(data)
 
         axiosPublic.put(`/updateBlog/${id}`, data)
             .then(res => {
@@ -93,6 +102,7 @@ const UpdateBlog = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    setDataLoading(false);
 
                 }
             })
@@ -188,7 +198,7 @@ const UpdateBlog = () => {
                                                     multiple
                                                     onChange={handleImageChange}
                                                     className="file-input file-input-bordered file-input-md w-full"
-                                                disabled={loading} // Disable input during upload
+                                                    disabled={loading} // Disable input during upload
                                                 />
                                                 <div className="flex flex-wrap gap-4 mt-4">
                                                     {incomingImages?.map((img, index) => (
@@ -236,7 +246,7 @@ const UpdateBlog = () => {
 
                                             <div className="">
                                                 <label htmlFor="name">Meta Keyword</label>
-                                                <input type="text" defaultValue={incomingMeta} name="meta" className="w-full px-4 py-2 border rounded-md" />
+                                                <input type="text" defaultValue={incomingMeta} name="meta_word" className="w-full px-4 py-2 border rounded-md" />
                                             </div>
 
 
@@ -269,7 +279,9 @@ const UpdateBlog = () => {
                                         </div>
 
                                         <div className="p-2 w-full">
-                                            <div className='flex justify-center items-center'><ButtonStrong text={'Submit'} /></div>
+                                            <button type="submit" disabled={dataLoading} className="w-full py-2 bg-orange-600 text-white rounded-md">
+                                                {dataLoading ? "Updating..." : "Submit"}
+                                            </button>
                                         </div>
                                     </form>
 
