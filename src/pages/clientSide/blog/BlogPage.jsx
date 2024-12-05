@@ -89,7 +89,7 @@ const BlogPage = () => {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full md:w-1/3 ">
+                <aside className="w-full md:w-1/3 hidden lg:block ">
                     <h2 className="text-xl font-semibold">Popular Blogs</h2>
                     <div className="gap-10">
                         {blogs
@@ -111,6 +111,7 @@ const BlogPage = () => {
                                             <h3 className="text-sm font-medium text-black">
                                                 {sidebarBlog.title}
                                             </h3>
+                                            <p className=" text-sm  ">Author Name : {sidebarBlog?.author}</p>
                                         </div>
                                     </div>
                                 </Link>
@@ -125,8 +126,8 @@ const BlogPage = () => {
                     onClick={handlePrev}
                     disabled={firstCardId === 0}
                     className={`px-7 py-2 rounded bg-primary text-white ${firstCardId === 0
-                            ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:bg-primary-dark'
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:bg-primary-dark'
                         }`}
                 >
                     Prev
@@ -139,8 +140,8 @@ const BlogPage = () => {
                     onClick={handleNext}
                     disabled={firstCardId + cardPerSlice >= totalBlogs}
                     className={`px-7 py-2 rounded bg-primary text-white ${firstCardId + cardPerSlice >= totalBlogs
-                            ? 'opacity-50 cursor-not-allowed'
-                            : 'hover:bg-primary-dark'
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:bg-primary-dark'
                         }`}
                 >
                     Next
