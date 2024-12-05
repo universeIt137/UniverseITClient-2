@@ -14,6 +14,10 @@ import { uploadImg } from '../../../UploadFile/uploadImg';
 import Loading from '../../../Shared/Loading/Loading';
 const UpdateBlog = () => {
     const [tinyDescription, setTinyDescription] = useState('')
+    const [incomingImages, setIncomingImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+
     const { id } = useParams();
     const [descriptionErr, setDescriptionErr] = useState(false)
     const axiosPublic = useAxiosPublic();
@@ -25,21 +29,24 @@ const UpdateBlog = () => {
             return res?.data
         }
     })
+
+    console.log(blogData);
     useEffect(() => {
         if (!isLoading) {
             setTinyDescription(blogData.description);
+            setIncomingImages(blogData.images || []);
         }
         console.log(isLoading);
     }, [blogData, isLoading]);
     if (isLoading) {
         return <Loading />
     }
-    const { title: incomingTitle, BannerImageUrl: incomingBannerImageUrl, images: incomingImages, youtubeVideo:incomingYoutubeVideo, date: incomingDate, meta_word: incomingMeta_word, author: incomingAuthor, description: incomingDescription, } = blogData;
-    const showingData = new Date(incomingDate || 0);
+    const { title: incomingTitle, BannerImageUrl: incomingBannerImageUrl, youtubeVideo: incomingYoutubeVideo, date: incomingDate, meta: incomingMeta, author: incomingAuthor, description: incomingDescription, } = blogData;
+    // const showingData = new Date(incomingDate || 0);
 
-    // Format the date as YYYY-MM-DD
-    const formattedDate = showingData?.toISOString()?.split('T')[0];
-    console.log(formattedDate);
+    // // Format the date as YYYY-MM-DD
+    // const formattedDate = showingData?.toISOString()?.split('T')[0];
+    // console.log(formattedDate);
     const handleDescriptionChange = (value) => {
         setTinyDescription(value)
     };
@@ -52,7 +59,7 @@ const UpdateBlog = () => {
         event.preventDefault();
         const form = event.target;
         const title = form.title.value;
-        const blogImage = form.blogImg.files[0];
+        const blogImage = form.image.files[0];
         const date = form.date.value
         const meta_word = form.meta_word.value;
         const author = form.author.value;
@@ -61,16 +68,16 @@ const UpdateBlog = () => {
             setTinyDescription(tinyDescription)
             return setDescriptionErr(true)
         }
-        let blogImageUrl = incomingBlogImageUrl
+        let blogImageUrl = incomingBannerImageUrl
         if (!blogImage?.name) {
 
-            blogImageUrl = incomingBlogImageUrl
+            blogImageUrl = incomingBannerImageUrl
         } else {
             blogImageUrl = await uploadImg(blogImage);
         }
 
 
-        const data = { title, blogImageUrl, meta_word, author, description, date };
+        const data = { title, BannerImageUrl: blogImageUrl, meta_word, author, description, date };
         console.log(data)
 
         axiosPublic.put(`/updateBlog/${id}`, data)
@@ -95,6 +102,37 @@ const UpdateBlog = () => {
         form.reset();
     }
 
+
+    // Image related Function 
+
+    const handleImageChange = async (e) => {
+        const files = Array.from(e.target.files);
+
+        try {
+            setLoading(true);
+            const uploadedUrls = await Promise.all(
+                files.map(async (file) => await uploadImg(file)) // Upload each file using your uploadImg function
+            );
+            setIncomingImages([...incomingImages, ...uploadedUrls]); // Update the state with uploaded image URLs
+        } catch (error) {
+            console.error("Error uploading images:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong while uploading images!',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    // Function to delete an image
+    const removeImage = (index) => {
+        const updatedImages = incomingImages.filter((_, i) => i !== index); // Remove image from state
+        setIncomingImages(updatedImages);
+    };
+
     return (
         <>
             <Helmet>
@@ -115,7 +153,7 @@ const UpdateBlog = () => {
                                     <p className='text-center text-2xl font-bold py-2'>Update Blog</p>
                                     <form action="" onSubmit={handleSubmit} className='flex flex-wrap -m-2'>
 
-                                        <div className="grid lg:grid-cols-3">
+                                        <div className="grid lg:grid-cols-3 gap-5">
                                             {/* Title  */}
                                             <div className="p-2 ">
                                                 <div className="relative">
@@ -148,9 +186,9 @@ const UpdateBlog = () => {
                                                     type="file"
                                                     name="images"
                                                     multiple
-                                                    // onChange={handleImageChange}
+                                                    onChange={handleImageChange}
                                                     className="file-input file-input-bordered file-input-md w-full"
-                                                // disabled={loading} // Disable input during upload
+                                                disabled={loading} // Disable input during upload
                                                 />
                                                 <div className="flex flex-wrap gap-4 mt-4">
                                                     {incomingImages?.map((img, index) => (
@@ -162,7 +200,7 @@ const UpdateBlog = () => {
                                                             />
                                                             <button
                                                                 type="button"
-                                                                // onClick={() => removeImage(index)}
+                                                                onClick={() => removeImage(index)}
                                                                 className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600"
                                                             >
                                                                 ×
@@ -177,30 +215,32 @@ const UpdateBlog = () => {
                                                 <input type="text" name="youtubeVideo" defaultValue={incomingYoutubeVideo} className="w-full px-4 py-2 border rounded-md" />
                                             </div>
 
-                                            {/* author  */}
-                                            <div className="p-2 ">
+
+                                            {/* Video */}
+                                            <div className=" w-full ">
                                                 <div className="relative">
-                                                    <label className="leading-7 text-sm text-gray-600">Author Name</label>
-                                                    <input type="text" defaultValue={incomingAuthor} name="author" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                    <p>Upload Video</p>
+                                                    <input type="file" name='video' accept="video/*" className="file-input file-input-bordered file-input-md w-full" />
                                                 </div>
+
+                                            </div>
+
+
+                                            <div className="">
+                                                <p>Date</p>
+                                                <label className="input input-bordered flex items-center gap-2">
+                                                    <input type="date" defaultValue={incomingDate} name="date" className="grow" placeholder="Search" />
+
+                                                </label>
+                                            </div>
+
+                                            <div className="">
+                                                <label htmlFor="name">Meta Keyword</label>
+                                                <input type="text" defaultValue={incomingMeta} name="meta" className="w-full px-4 py-2 border rounded-md" />
                                             </div>
 
 
 
-                                            {/* Meta keyword  */}
-                                            <div className="p-2 ">
-                                                <div className="relative ">
-                                                    <label className="leading-7 text-sm text-gray-600">Meta Keyword</label>
-                                                    <input defaultValue={incomingMeta_word} type="text" name="meta_word" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                                                </div>
-                                            </div>
-                                            {/* Date  */}
-                                            <div className="p-2 ">
-                                                <div className="relative">
-                                                    <label className="leading-7 text-sm text-gray-600 font-bold">Date</label>
-                                                    <input defaultValue={incomingDate} type="date" name="date" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                                                </div>
-                                            </div>
 
                                         </div>
 
