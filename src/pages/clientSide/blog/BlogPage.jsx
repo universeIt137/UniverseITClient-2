@@ -4,39 +4,46 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Shared/Loading/Loading';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 const BlogPage = () => {
-    window.scrollTo(0, 0);
+    // Scroll to top on page load
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    // State
     const [firstCardId, setFirstCardId] = useState(0);
     const [cardPerSlice, setCardPerSlice] = useState(6);
+    const [searchTerm, setSearchTerm] = useState('');
     const axiosPublic = useAxiosPublic();
-    const { data: allBlogs = [], refetch, isLoading } = useQuery({
+
+    // Fetch blogs
+    const { data: allBlogs = [], isLoading } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
             const res = await axiosPublic.get('/blog');
             return res.data;
-        }
+        },
     });
+
+    // Loading spinner
     if (isLoading) {
-        return <Loading />
+        return <Loading />;
     }
 
-    const blogs = allBlogs?.filter(item => item.status === true);
+    // Filter blogs by active status and search term
+    const blogs = allBlogs.filter((item) => item.status === true);
+    const filteredBlogs = blogs.filter((blog) =>
+        blog.author.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );
 
+    const totalBlogs = filteredBlogs.length;
 
-    let showingBlogs = blogs.map((data, idx) => {
-        const newData = {
-            ...data,
-            id: idx + 1
-        };
-        return newData;
-    });
-
-    const totalCard = showingBlogs.length;
-
+    // Paginate blogs
     const handleNext = () => {
         const newFirstCardId = firstCardId + cardPerSlice;
-        if (newFirstCardId < totalCard) {
+        if (newFirstCardId < totalBlogs) {
             setFirstCardId(newFirstCardId);
         }
     };
@@ -48,35 +55,93 @@ const BlogPage = () => {
         }
     };
 
-    
-
     return (
-        <div className='sm:px-20 px-5 my-10 min-h-screen'>
+        <div className="sm:px-20 px-5 my-10 min-h-screen">
             <Helmet>
                 <title>Universe IT | Blogs</title>
             </Helmet>
-            <p className="text-4xl m-10 text-center"><span className='text-primary border-b-2'>Latest</span> Blogs</p>
 
-            <div className='flex gap-10 flex-col'>
-                {
-                    (showingBlogs.slice(firstCardId, firstCardId + cardPerSlice)).map((blog, idx) => <BlogCard key={idx} blog={blog} />)
-                }
+            <h1 className="text-4xl font-bold text-center my-10">
+                <span className="text-primary border-b-2">Latest</span> Blogs
+            </h1>
+
+            {/* Search bar */}
+            <div className="flex justify-end mb-10">
+                <input
+                    type="text"
+                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring focus:ring-blue-300"
+                    placeholder="Search Blogs by Author Name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
-            <div className="mt-4 flex justify-center items-center gap-6">
+
+            <div className="flex flex-col md:flex-row gap-10 gap-y-6">
+                {/* Blog Cards */}
+                <div className="flex-1 space-y-6">
+                    {filteredBlogs
+                        .slice()
+                        .reverse()
+                        .slice(firstCardId, firstCardId + cardPerSlice)
+                        .map((blog) => (
+                            <BlogCard key={blog._id} blog={blog} />
+                        ))}
+                </div>
+
+                {/* Sidebar */}
+                <aside className="w-full md:w-1/3 ">
+                    <h2 className="text-xl font-semibold">Popular Blogs</h2>
+                    <div className="gap-10">
+                        {blogs
+                            .slice()
+                            .reverse()
+                            .slice(0, 5)
+                            .map((sidebarBlog) => (
+                                <Link
+                                    key={sidebarBlog._id}
+                                    to={`/blogDetails/${sidebarBlog._id}`}
+                                >
+                                    <div className="flex border-2 border-black items-center my-10 rounded-lg p-3 hover:shadow-lg transition">
+                                        <img
+                                            src={sidebarBlog.BannerImageUrl}
+                                            alt={sidebarBlog.title}
+                                            className="w-14 h-14 rounded-lg object-cover"
+                                        />
+                                        <div className="ml-4">
+                                            <h3 className="text-sm font-medium text-black">
+                                                {sidebarBlog.title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                    </div>
+                </aside>
+            </div>
+
+            {/* Pagination */}
+            <div className="mt-10 flex justify-center items-center gap-6">
                 <button
                     onClick={handlePrev}
                     disabled={firstCardId === 0}
-                    className={`px-7 btn bg-primary text-white hover:text-black  active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 focus:text-white w-max ${firstCardId === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-7 py-2 rounded bg-primary text-white ${firstCardId === 0
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:bg-primary-dark'
+                        }`}
                 >
                     Prev
                 </button>
-                <div>
-                    {firstCardId / cardPerSlice + 1} /{Math.ceil(totalCard / cardPerSlice)}
-                </div>
+                <span>
+                    Page {Math.ceil(firstCardId / cardPerSlice) + 1} of{' '}
+                    {Math.ceil(totalBlogs / cardPerSlice)}
+                </span>
                 <button
                     onClick={handleNext}
-                    disabled={firstCardId + cardPerSlice >= totalCard}
-                    className={`px-7 btn bg-primary text-white hover:text-black  active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 focus:text-white w-max ${firstCardId + cardPerSlice >= totalCard ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={firstCardId + cardPerSlice >= totalBlogs}
+                    className={`px-7 py-2 rounded bg-primary text-white ${firstCardId + cardPerSlice >= totalBlogs
+                            ? 'opacity-50 cursor-not-allowed'
+                            : 'hover:bg-primary-dark'
+                        }`}
                 >
                     Next
                 </button>
