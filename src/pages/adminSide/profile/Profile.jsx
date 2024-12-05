@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FaBook, FaBookReader, FaBriefcase, FaSwatchbook, FaUser, FaUserCog } from 'react-icons/fa';
+import { FaBook, FaBookReader, FaBriefcase, FaPeopleArrows, FaSwatchbook, FaUser, FaUserCog } from 'react-icons/fa';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Loading from '../../../Shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 import { GiTeacher } from 'react-icons/gi';
-import { FaUsersLine } from 'react-icons/fa6';
+import { FaLandMineOn, FaUsersLine } from 'react-icons/fa6';
 import { RiFunctionFill } from 'react-icons/ri';
 
 const Profile = () => {
@@ -73,6 +73,21 @@ const Profile = () => {
     }
   })
 
+  // representative
+
+  const { data: contents = [], refetch } = useQuery({
+    queryKey: ['all data'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/users');
+      return res.data;
+    }
+  })
+
+  const representatives = contents?.filter(item => item.hasOwnProperty('representative'));
+
+  //Admin
+  const Admin = contents.filter(user => !user.hasOwnProperty('representative'));
+
   if (isLoading) {
     return <Loading />
   }
@@ -86,14 +101,14 @@ const Profile = () => {
 
       <div className="grid lg:grid-cols-3 gap-5 m-3">
 
-        
 
-        
+
+
 
         <Link to="/dashboard/manageCourses">
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm  p-5 border rounded-full text-3xl ">
-            <FaBookReader />
+              <FaBookReader />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{courses.length}</p>
@@ -105,7 +120,7 @@ const Profile = () => {
         <Link to="/dashboard/manageFaculty">
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm border p-5 border rounded-full text-3xl ">
-            <GiTeacher />
+              <GiTeacher />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{faculties.length}</p>
@@ -118,7 +133,7 @@ const Profile = () => {
         <Link to="/dashboard/manage-member">
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm  p-5 border rounded-full text-3xl ">
-            <FaUserCog />
+              <FaUserCog />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{members.length}</p>
@@ -131,7 +146,7 @@ const Profile = () => {
         <Link to={"/dashboard/manage-job"}>
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm  p-5 border rounded-full text-3xl ">
-            <FaBriefcase />
+              <FaBriefcase />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{jobRequests.length}</p>
@@ -145,7 +160,7 @@ const Profile = () => {
         <Link to="/dashboard/admissionRequest">
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm  p-5 border rounded-full text-3xl ">
-            <FaUsersLine />
+              <FaUsersLine />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{admissionRequests.length}</p>
@@ -157,11 +172,35 @@ const Profile = () => {
         <Link to="/dashboard/seminar">
           <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
             <div className="bg-primary text-white shadow-sm border p-5 border rounded-full text-3xl ">
-            <RiFunctionFill />
+              <RiFunctionFill />
             </div>
             <div className="">
               <p className='text-3xl text-primary font-semibold'>{seminarRequests.length}</p>
               <p className='text-pretty text-gray-500'>Total Seminars Requests</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link to="/dashboard/manage-representative">
+          <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
+            <div className="bg-primary text-white shadow-sm border p-5  rounded-full text-3xl ">
+              <FaPeopleArrows></FaPeopleArrows>
+            </div>
+            <div className="">
+              <p className='text-3xl text-primary font-semibold'>{representatives?.length}</p>
+              <p className='text-pretty text-gray-500'>Total Representatives</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link to="/dashboard/manageUsers">
+          <div className="bg-white flex justify-around items-center rounded-lg py-5 shadow-sm shadow-secondary">
+            <div className="bg-primary text-white shadow-sm border p-5  rounded-full text-3xl ">
+              <FaUserCog></FaUserCog>
+            </div>
+            <div className="">
+              <p className='text-3xl text-primary font-semibold'>{Admin?.length}</p>
+              <p className='text-pretty text-gray-500'>Total Admins</p>
             </div>
           </div>
         </Link>

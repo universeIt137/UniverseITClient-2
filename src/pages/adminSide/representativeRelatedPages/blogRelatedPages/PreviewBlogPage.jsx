@@ -1,20 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
-import BlogSlider from './components/BlogSlider';
-import BlogVideo from './components/BlogVideo';
+import BlogSlider from '../../../clientSide/blog/components/BlogSlider';
+import BlogVideo from '../../../clientSide/blog/components/BlogVideo';
+import BackendSlider from './BackendSlider';
 
-const BlogDetails = () => {
-    // Scroll to top when the component renders
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
+const PreviewBlogPage = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic();
 
-    // Fetch single blog details based on the id
     const { data: blog = {} } = useQuery({
         queryKey: ['blog', id], // Include `id` in the queryKey
         queryFn: async () => {
@@ -23,8 +18,6 @@ const BlogDetails = () => {
         },
         keepPreviousData: true, // Optionally, keeps the old data while fetching new data
     });
-
-    // console.log(blog);
 
     // Fetch all blogs for the sidebar
     const { data: blogs = [] } = useQuery({
@@ -38,10 +31,10 @@ const BlogDetails = () => {
     return (
         <div className="w-11/12 mx-auto mt-20 lg:mt-18">
             <div className="">
-                
+
                 <div className="lg:flex gap-10">
                     <div className="lg:w-3/4">
-                        <BlogSlider blog={blog}></BlogSlider>
+                        <BackendSlider blog={blog}></BackendSlider>
                         <div className='py-10'>
                             <p dangerouslySetInnerHTML={{ __html: blog?.description }} className='px-2 text-xl'>
                             </p>
@@ -77,4 +70,4 @@ const BlogDetails = () => {
     );
 };
 
-export default BlogDetails;
+export default PreviewBlogPage;

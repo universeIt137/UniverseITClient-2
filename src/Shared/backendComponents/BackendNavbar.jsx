@@ -17,8 +17,8 @@ const BackendNavbar = () => {
                 <h2 className="text-2xl font-bold hidden lg:block">Universe IT Institute</h2>
                <Link to={'/'}> <img className='max-w-28 block lg:hidden' src={logo} alt="" /></Link>
                 <div className="flex items-center flex-wrap gap-2">
-
-                    <Link className='flex' to={'/dashboard'}>{ user?.displayName }<FaRegCircleUser className='ml-5 text-2xl' /></Link>
+                
+                    <Link className='flex' >{ user?.displayName }<FaRegCircleUser className='ml-5 text-2xl' /></Link>
 
                     <div className='z-20 block lg:hidden'>
                         <input id="my-drawer" type="checkbox" className="drawer-toggle" />

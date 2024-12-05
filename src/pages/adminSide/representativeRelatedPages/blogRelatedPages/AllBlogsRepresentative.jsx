@@ -1,20 +1,18 @@
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
-import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
-const ManageBlog = () => {
+const AllBlogsRepresentative = () => {
+    const { email } = useParams();
     const axiosPublic = useAxiosPublic();
-
-
-    const { data: contents = [], refetch } = useQuery({
-        queryKey: ['allData'],
+    const { data: filteredBlogs = [], refetch } = useQuery({
+        queryKey: ['filteredBlogs'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/blog');
-            return res.data;
+            const res = axiosPublic.get(`/blogs/${email}`);
+            return (await res).data;
         }
     })
 
@@ -36,7 +34,6 @@ const ManageBlog = () => {
             })
 
     };
-
 
 
     const handleDelete = (id) => {
@@ -76,26 +73,25 @@ const ManageBlog = () => {
 
     return (
         <div className="mx-auto w-11/12 my-5">
-            <Helmet>
-                <title>Dashboard | Manage Blog</title>
-            </Helmet>
-            <p className="text-2xl font-bold text-center mb-2">Manage Blogs</p>
+            <p className="text-2xl font-bold text-center mb-2">Manage Blogs ({ filteredBlogs?.length })</p>
             <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                     <tr>
+                        <th className="px-4 py-2 border">#</th>
                         <th className="px-4 py-2 border">Title</th>
                         <th className="px-4 py-2 border">Banner Image</th>
                         <th className="px-4 py-2 border">Author Name</th>
                         <th className="px-4 py-2 border">Author Email</th>
-                        <th className="px-4 py-2 border">Preview</th>
+                        <th className="px-4 py-2 border">Blog Preview</th>
                         <th className="px-4 py-2 border">Status</th>
                         <th className="px-4 py-2 border">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        contents && contents?.map((content) => (
+                        filteredBlogs && filteredBlogs?.map((content, index) => (
                             <tr key={content?._id} className="text-center">
+                                <td className="px-4 py-2 border font-semibold">{index + 1}</td>
                                 <td className="px-4 py-2 border font-semibold">{content?.title}</td>
                                 <td className="px-4 py-2 border">
                                     <div className="avatar">
@@ -150,4 +146,4 @@ const ManageBlog = () => {
     );
 };
 
-export default ManageBlog;
+export default AllBlogsRepresentative;

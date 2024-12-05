@@ -56,6 +56,8 @@ const AddBlogPage = () => {
 
         const title = form.title.value;
         const youtubeVideo = form.youtubeVideo.value;
+        const date = form.date.value;
+        const meta = form.meta.value;
         const image = form.image.files[0];
         const description = formData.description;
         const selectedVideo = form.video.files[0];
@@ -88,6 +90,8 @@ const AddBlogPage = () => {
                 author: user?.displayName,
                 author_email: user?.email,
                 youtubeVideo,
+                date,
+                meta,
                 videoUrl,
                 description,
                 BannerImageUrl,
@@ -119,7 +123,7 @@ const AddBlogPage = () => {
     return (
         <div className="w-10/12 mx-auto p-4">
             <Helmet>
-                <title>Dashboard | Add CSR</title>
+                <title>Dashboard | Add Blog</title>
             </Helmet>
             <h2 className="text-2xl font-semibold mb-4">Upload Blog Content</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -130,6 +134,8 @@ const AddBlogPage = () => {
                         <label htmlFor="name">Title</label>
                         <input type="text" name="title" className="w-full px-4 py-2 border rounded-md" />
                     </div>
+
+                    
 
 
 
@@ -170,9 +176,27 @@ const AddBlogPage = () => {
 
                     </div>
 
+                    <div className="">
+                        <p>Date</p>
+                        <label className="input input-bordered flex items-center gap-2">
+                            <input type="date" name="date" className="grow" placeholder="Search" />
+
+                        </label>
+                    </div>
+
+                    <div className="">
+                        <label htmlFor="name">Meta Keyword</label>
+                        <input type="text" name="meta" className="w-full px-4 py-2 border rounded-md" />
+                    </div>
+                    
+
 
 
                 </div>
+
+                
+
+
 
 
 

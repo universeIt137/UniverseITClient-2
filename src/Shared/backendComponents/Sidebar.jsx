@@ -70,6 +70,7 @@ const Sidebar = () => {
     {
       name: 'Representative Members',
       data: <>
+        <NavigationItem to="/dashboard/add-representative" icon={MdAddCircle} label="Add Representative" />
         <NavigationItem to="/dashboard/manage-representative" icon={MdAddCircle} label="Manage Representative" />
       </>
     },
@@ -134,7 +135,7 @@ const Sidebar = () => {
       name: 'Blogs',
       data: <>
         <NavigationItem to="/dashboard/addBlog" icon={MdAddCircle} label="Add Blog" />
-        
+
         <NavigationItem to="/dashboard/manageBlogRep" icon={SiNginxproxymanager} label="Manage Blogs" />
       </>
     },
@@ -159,15 +160,16 @@ const Sidebar = () => {
             {/* <NavigationItem to="/dashboard" icon={FaHome} label="Dashboard" /> */}
 
 
-            <NavigationItem
-              to="/dashboard"
-              icon={FaCircleUser}
-              label="Dashboard"
-            />
+
 
             {
               isAdmin &&
               <>
+                <NavigationItem
+                  to="/dashboard/statistics"
+                  icon={FaCircleUser}
+                  label="Statistic"
+                />
                 {
                   allUrls.map((item, idx) => <li key={idx} className="mb-4">
                     <Dropdown buttonText={item.name} urls={item.data} openBox={openBox} setOpenBox={setOpenBox} id={idx} />

@@ -66,9 +66,13 @@ const Register = () => {
             <Helmet>
                 <title>Universe IT | Admin Register</title>
             </Helmet>
-            <div className="p-2">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-[600px] mx-auto space-y-5">
-                    <p className='text-center text-2xl font-bold pb-5'>Admin Register</p>
+            <div className="p-2 ">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-[600px] mx-auto space-y-5 border m-4 p-5 shadow-lg rounded-lg">
+                    <p className='text-center text-2xl font-bold pb-5'>
+                       
+                        <Link to={'/register'}> <span className=" hover:text-blue-500">  Admin Register </span> </Link>
+                         
+                    </p>
                     {/* your Name  */}
                     <div className="flex flex-col gap-2">
                         <InputLabel text={'Your Name'} />

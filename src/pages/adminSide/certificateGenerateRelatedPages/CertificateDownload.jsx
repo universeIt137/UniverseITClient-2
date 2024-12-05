@@ -15,86 +15,92 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const styles = StyleSheet.create({
     page: {
-        padding: 50,
-        fontFamily: 'Helvetica',
-        position: 'relative',
-        backgroundColor: '#ffffff',
-    },
-    borderContainer: {
-        borderWidth: 20,
-        borderColor: '#2E7270',
-        height: '100%',
         width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        height: '100%',
+        padding: 40,
+        flexDirection: 'column',
+        backgroundColor: '#fdf6e3',
+        position: 'relative',
+        fontFamily: 'Times-Roman',
     },
-    decorativeBorder: {
+    border: {
         position: 'absolute',
         top: 20,
         left: 20,
         right: 20,
         bottom: 20,
+        borderWidth: 10,
+        borderColor: '#2E7270',
+    },
+    decorativeBorder: {
+        position: 'absolute',
+        top: 40,
+        left: 40,
+        right: 40,
+        bottom: 40,
         borderWidth: 5,
         borderColor: '#FFD700',
     },
-    title: {
-        fontSize: 36,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 50,
-        color: '#2E7270',
-    },
-    subtitle: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginVertical: 15,
-        color: '#333',
-    },
-    name: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginVertical: 30,
-        color: '#4A90E2',
-    },
-    content: {
-        fontSize: 16,
-        textAlign: 'center',
-        marginHorizontal: 40,
-        lineHeight: 1.5,
-        marginBottom: 40,
-        color: '#555',
-    },
-    logoContainer: {
+    logo: {
         position: 'absolute',
-        top: 30,
-        left: 30,
+        top: 40,
+        left: 40,
         width: 80,
         height: 80,
     },
     qrCode: {
         position: 'absolute',
-        top: 30,
-        right: 30,
+        top: 80,
+        right: 80,
         width: 80,
         height: 80,
+    },
+    title: {
+        top: 150,
+        textAlign: 'center',
+        fontSize: 36,
+        fontWeight: 'bold',
+        color: '#2E7270',
+        marginBottom: 10,
+    },
+    subtitle: {
+        top:160,
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#4d6980',
+        marginBottom: 30,
+    },
+    name: {
+        textAlign: 'center',
+        top: 170,
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#4A90E2',
+        marginBottom: 20,
+    },
+    details: {
+        top: 180,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#333',
+        marginBottom: 50,
+        marginHorizontal: 60,
+        lineHeight: 1.5,
     },
     footer: {
         position: 'absolute',
         bottom: 60,
-        left: 50,
+        left: 80,
         right: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        fontSize: 12,
-        color: '#333',
     },
     signatureBlock: {
+        right: 40,
         textAlign: 'center',
         borderTopWidth: 1,
-        borderColor: '#000',
+        borderColor: '#333',
         paddingTop: 5,
         marginTop: 10,
     },
@@ -102,28 +108,31 @@ const styles = StyleSheet.create({
 
 const SingleStudentPDF = ({ data }) => (
     <Document>
-        <Page size="A4" style={styles.page}>
-            {/* Outer Decorative Border */}
-            <View style={styles.borderContainer}></View>
+        <Page size={[842, 595]} style={styles.page}> {/* Horizontal A4 (landscape) */}
+            {/* Decorative Borders */}
+            <View style={styles.border}></View>
             <View style={styles.decorativeBorder}></View>
 
             {/* Logo */}
-            {data?.logo_url && <Image src={data.logo_url} style={styles.logoContainer} />}
+            {data?.logo_url && <Image src={data.logo_url} style={styles.logo} />}
 
             {/* QR Code */}
             {data?.qr_code_url && <Image src={data.qr_code_url} style={styles.qrCode} />}
 
-            {/* Certificate Title */}
-            <Text style={styles.title}>Certificate of Excellence</Text>
-            <Text style={styles.subtitle}>This is awarded to</Text>
+            {/* Title */}
+            <Text style={styles.title}>Certificate of Achievement</Text>
+
+            {/* Subtitle */}
+            <Text style={styles.subtitle}>This is proudly presented to</Text>
 
             {/* Recipient Name */}
             <Text style={styles.name}>{data?.name}</Text>
 
-            {/* Details */}
-            <Text style={styles.content}>
-                In recognition of successfully completing {data?.hours} hours in the "{data?.course_category}" course titled "{data?.course_name}".
-                This certificate is issued with great appreciation for your hard work and dedication.
+            {/* Course Details */}
+            <Text style={styles.details}>
+                For successfully completing {data?.hours} hours in the
+                "{data?.course_category}" course titled "{data?.course_name}". This
+                certificate is issued in recognition of your dedication and hard work.
             </Text>
 
             {/* Footer */}
@@ -163,7 +172,7 @@ const CertificateDownload = () => {
                 <>
                     {/* PDF Viewer */}
                     <div className="border p-4 rounded-lg mb-4 bg-white">
-                        <PDFViewer style={{ width: '100%', height: '600px' }}>
+                        <PDFViewer style={{ width: '100%', height: '500px' }}>
                             <SingleStudentPDF data={pdfData} />
                         </PDFViewer>
                     </div>
