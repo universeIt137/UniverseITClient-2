@@ -22,11 +22,13 @@ const ManageUsers = () => {
         return ''
     }
     const handleOfficialStateChange = (data) => {
+        // console.log(data);
         const id = data?._id;
         const admin = !data?.admin;
         const newData = { id, admin }
+        console.log(newData);
         const toastId = toast.loading("User Role Changing...");
-        axiosPublic.put('/users/role', newData)
+        axiosPublic.put('/users/role/admin', newData)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     toast.success("Role has changed!!", { id: toastId });

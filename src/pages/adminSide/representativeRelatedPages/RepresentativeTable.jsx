@@ -15,6 +15,7 @@ const RepresentativeTable = ({ contents, refetch }) => {
         const id = data?._id;
         const representative = !data?.representative;
         const newData = { id, representative }
+        
         const toastId = toast.loading("User Role Changing...");
         axiosPublic.put('/users/role/representative', newData)
             .then(res => {
