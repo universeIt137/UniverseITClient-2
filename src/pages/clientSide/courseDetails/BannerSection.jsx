@@ -98,6 +98,53 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                             readonly
                         />
                     </p>
+
+                    <div className="flex flex-col bg-[#fffaf0] rounded-xl p-4 shadow-md justify-between min-h-full my-5">
+                        <div className="hidden lg:block">
+                            <p className="text-2xl text-secondary font-bold">{title}</p>
+                            <p>{category}</p>
+                            <p className='text-primary'>
+                                <Rating
+                                    className="space-x-1"
+                                    emptySymbol={<FaRegStar />}
+                                    fullSymbol={<FaStar />}
+                                    initialRating={4}
+                                    readonly
+                                />
+                            </p>
+
+                            <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5">
+                                {keyFeatures?.map((item, idx) => (
+                                    <li key={idx} className="flex items-start text-black gap-3">
+                                        {/* Custom Bullet */}
+                                        <span
+                                            className="w-2 h-2 mt-2 rounded-full bg-black flex-shrink-0"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                                {keyFeatures?.length < 1 && (
+                                    <li className="text-black text-center">No key features added!!</li>
+                                )}
+                            </ul>
+
+                            <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5">
+                              
+                                    <li  className="flex items-start text-black gap-3">
+                                        {/* Custom Bullet */}
+                                        <span
+                                            className="w-2 h-2 mt-2 rounded-full bg-black flex-shrink-0"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
+                                    </li>
+                             
+                                
+                            </ul>
+                        </div>
+                    </div>
+
                     {/* <div className=''>
                         <p className='text-lg font-bold py-2'>Instructors:</p>
                         <div className='flex flex-wrap justify-center items-center gap-2'>
@@ -190,7 +237,7 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                 <div className='block lg:hidden'><CourseTabsAndShare /></div>
                 {/* course video and technology section for mobile view  */}
 
-                <div className="px-5">
+                <div className="">
                     <SuccessStory filteredSuccessStories={filteredSuccessStories} />
                     <RelatedCourse />
                 </div>
