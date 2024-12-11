@@ -15,7 +15,7 @@ import CourseTabsAndShare from './CourseTabsAndShare';
 
 const BannerSection = ({ filteredSuccessStories, courseData }) => {
 
-    const { category, title, videoUrl, bannerImages = [], subVideos, notice, bangla, admissionNotice, courseFee, discountFee, technologies = [], keyFeatures = [], instructors = [] } = courseData;
+    const { category, title, videoUrl, bannerImages = [], subVideos, notice, bangla, admissionNotice, courseFee, discountFee, technologies = [], keyFeatures = [], bulletPoints = [], instructors = [] } = courseData;
     const handleClick = () => {
         window.location.href = `tel:+8801755450127`;
     };
@@ -137,42 +137,24 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
 
                             <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5 mt-5">
 
-                                <li className="flex items-start text-gray-600 text-lg gap-3">
-                                    {/* Custom Bullet */}
-                                    <span
-                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
-                                        aria-hidden="true"
-                                    ></span>
-                                    <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
-                                </li>
+                               
 
-                                <li className="flex items-start text-gray-600 text-lg gap-3">
-                                    {/* Custom Bullet */}
-                                    <span
-                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
-                                        aria-hidden="true"
-                                    ></span>
-                                    <span>৫০+ কুইজ</span>
-                                </li>
+                                {bulletPoints?.map((item, idx) => (
 
 
-                                <li className="flex items-start text-gray-600 text-lg gap-3">
-                                    {/* Custom Bullet */}
-                                    <span
-                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
-                                        aria-hidden="true"
-                                    ></span>
-                                    <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
-                                </li>
 
-                                <li className="flex items-start text-gray-600 text-lg gap-3">
-                                    {/* Custom Bullet */}
-                                    <span
-                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
-                                        aria-hidden="true"
-                                    ></span>
-                                    <span>৫০+ কুইজ</span>
-                                </li>
+                                    <li key={idx} className="flex items-start text-gray-600 text-lg gap-3">
+                                        {/* Custom Bullet */}
+                                        <span
+                                            className="w-2 h-2 mt-2 rounded-full bg-gray-800  flex-shrink-0"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                                {keyFeatures?.length < 1 && (
+                                    <li className="text-black text-center">No key features added!!</li>
+                                )}
                             </ul>
                             <p className="text-2xl text-black font-bold ml-5 my-4">ফি {discountFee} টাকা</p>
                             <div className='mt-5'>
