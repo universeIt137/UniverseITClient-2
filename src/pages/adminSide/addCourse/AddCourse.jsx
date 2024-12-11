@@ -263,6 +263,9 @@ const AddCourse = () => {
                                             <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
                                             {/* add instructors  */}
                                             <AddInstructors allInstructors={allInstructors} setAllInstructors={setAllInstructors} />
+                                            {/* add bullet point  */}
+                                            <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
+
                                         </div>
 
 
