@@ -94,6 +94,9 @@ const Footer = () => {
                         <div className="footer">
                         <nav>
                             <h6 className="footer-title">Quick Link</h6>
+                            <Link to={"/login"} className="link link-hover">Login</Link>
+                            <Link to={"/register"} className="link link-hover">Register</Link>
+                            <Link to={"/rep-register"} className="link link-hover">Representative Register</Link>
                             <Link to={"/aboutUs"} className="link link-hover">About us</Link>
                             <Link to={"/faculties"} className="link link-hover">Our faculty</Link>
                             <Link to={"/career"} className="link link-hover">Career</Link>
