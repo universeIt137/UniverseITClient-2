@@ -289,8 +289,12 @@ const UpdateCoursePage = () => {
                                             <AddTechnology allTechnology={allTechnology} setAllTechnology={setAllTechnology} />
                                             {/* Key Features */}
                                             <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
+                                            
                                             {/* add instructors  */}
                                             <AddInstructors allInstructors={allInstructors} setAllInstructors={setAllInstructors} />
+
+                                            <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
+
                                         </div>
 
 

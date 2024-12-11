@@ -67,9 +67,9 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
 
             {/* sidebar */}
             <div className="lg:w-1/3 w-auto bg-white rounded-2xl overflow-hidden h-max">
-                <img src={bannerImages[0] || ''} alt="" />
+                <img src={bannerImages[0] || ''} alt="" className='rounded-xl' />
                 <div className='px-2 py-5'>
-                    <div className='flex justify-between'>
+                    {/* <div className='flex justify-between'>
                         <div>
                             <p className='font-bold text-lg'>{title}</p>
                             <p>{category}</p>
@@ -88,8 +88,8 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                                 </p>
                             )}
                         </p>
-                    </div>
-                    <p className='text-primary'>
+                    </div> */}
+                    {/* <p className='text-primary'>
                         <Rating
                             className="space-x-1"
                             emptySymbol={<FaRegStar />}
@@ -97,11 +97,31 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                             initialRating={4}
                             readonly
                         />
-                    </p>
+                    </p> */}
 
-                    <div className="flex flex-col bg-[#fffaf0] rounded-xl p-4 shadow-md justify-between min-h-full my-5">
-                        <div className="hidden lg:block">
-                            <p className="text-2xl text-secondary font-bold">{title}</p>
+                    <div className="flex flex-col bg-[#fffaf0] rounded-xl p-4 shadow-md justify-between min-h-full mb-5">
+                        <div className="">
+
+
+                            <div className='flex justify-between'>
+                                <div>
+                                    <p className="text-2xl text-secondary font-bold">{title}</p>
+                                </div>
+                                <div className="text-end text-base sm:text-xl font-bold text-primary flex flex-col justify-center items-center">
+                                    <p>Fee</p>
+                                    {discountFee === '0' ? (
+                                        <p className="text-center text-[12px] lg:text-base font-bold text-primary">
+                                            {courseFee}৳
+                                        </p>
+                                    ) : (
+                                        <p className="text-center text-[12px] lg:text-base font-bold text-primary">
+                                            <span className="font-normal">{discountFee}৳</span>{" "}
+                                            <span className="line-through">{courseFee}৳</span>
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
                             <p>{category}</p>
                             <p className='text-primary'>
                                 <Rating
@@ -113,35 +133,62 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                                 />
                             </p>
 
-                            <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5">
-                                {keyFeatures?.map((item, idx) => (
-                                    <li key={idx} className="flex items-start text-black gap-3">
-                                        {/* Custom Bullet */}
-                                        <span
-                                            className="w-2 h-2 mt-2 rounded-full bg-black flex-shrink-0"
-                                            aria-hidden="true"
-                                        ></span>
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
-                                {keyFeatures?.length < 1 && (
-                                    <li className="text-black text-center">No key features added!!</li>
-                                )}
-                            </ul>
 
-                            <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5">
-                              
-                                    <li  className="flex items-start text-black gap-3">
-                                        {/* Custom Bullet */}
-                                        <span
-                                            className="w-2 h-2 mt-2 rounded-full bg-black flex-shrink-0"
-                                            aria-hidden="true"
-                                        ></span>
-                                        <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
-                                    </li>
-                             
-                                
+
+                            <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5 mt-5">
+
+                                <li className="flex items-start text-gray-600 text-lg gap-3">
+                                    {/* Custom Bullet */}
+                                    <span
+                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
+                                        aria-hidden="true"
+                                    ></span>
+                                    <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
+                                </li>
+
+                                <li className="flex items-start text-gray-600 text-lg gap-3">
+                                    {/* Custom Bullet */}
+                                    <span
+                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
+                                        aria-hidden="true"
+                                    ></span>
+                                    <span>৫০+ কুইজ</span>
+                                </li>
+
+
+                                <li className="flex items-start text-gray-600 text-lg gap-3">
+                                    {/* Custom Bullet */}
+                                    <span
+                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
+                                        aria-hidden="true"
+                                    ></span>
+                                    <span>৪+ ঘন্টা প্রোজেক্ট বেসড টিউটোরিয়াল</span>
+                                </li>
+
+                                <li className="flex items-start text-gray-600 text-lg gap-3">
+                                    {/* Custom Bullet */}
+                                    <span
+                                        className="w-2 h-2 mt-2 rounded-full bg-gray-800 flex-shrink-0"
+                                        aria-hidden="true"
+                                    ></span>
+                                    <span>৫০+ কুইজ</span>
+                                </li>
                             </ul>
+                            <p className="text-2xl text-black font-bold ml-5 my-4">ফি {discountFee} টাকা</p>
+                            <div className='mt-5'>
+                                <div className='grid grid-cols-2  sm:grid-cols-2 gap-5 '>
+                                    <button className='w-full' onClick={handleClick}>
+                                        <ButtonStrong isWidthFull={true} text={<span className='text-nowrap text-sm py-0.5'>CALL NOW</span>} />
+                                    </button>
+                                    <Link to={'/freeSeminar'}>
+                                        <ButtonStrong isWidthFull={true} text={<span className='text-nowrap text-sm lg:text-xs xl:text-sm py-0.5 lg:py-1 xl:py-0.5'>JOIN FREE SEMINAR</span>} />
+                                    </Link>
+                                </div>
+
+                                <Link to={'/onlineAdmission'}>
+                                    <div className='-mt-7'><ButtonStrong text={'ENROLL NOW'} isWidthFull={true} /></div>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
@@ -179,8 +226,10 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
                         </div>
                     </div> */}
 
+                    {/* This course include section  */}
+
                     <div className="flex flex-col bg-[#fffaf0] rounded-xl p-4 shadow-md justify-between min-h-full">
-                        <div className="hidden lg:block">
+                        <div className="">
                             <p className="text-2xl text-secondary font-bold py-2">This course includes:</p>
                             <ul className="text-sm md:text-base lg:text-start space-y-3 px-4 pl-5">
                                 {keyFeatures?.map((item, idx) => (
