@@ -9,6 +9,7 @@ import AddTechnology from './AddTechnology';
 import KeyFeatures from './KeyFeatures';
 import AddInstructors from './AddInstructors';
 import { useQuery } from '@tanstack/react-query';
+import AddBulletPoint from './AddBulletPoint';
 
 const AddCourse = () => {
     const axiosPublic = useAxiosPublic()
@@ -21,6 +22,7 @@ const AddCourse = () => {
     const [subVideoErr, setSubVideoErr] = useState('')
     const [allTechnology, setAllTechnology] = useState([])
     const [allKeyFeatures, setAllKeyFeatures] = useState([]);
+    const [allBulletPoint, setAllBulletPoint] = useState([]);
     const [allInstructors, setAllInstructors] = useState([])
 
 
@@ -110,7 +112,7 @@ const AddCourse = () => {
         }
 
 
-        const data = { category, popularCategory, title, videoUrl, bannerImages: allImagesArray, subVideos: subVideosArray, courseFee, technologies: allTechnology, keyFeatures: allKeyFeatures, instructors: allInstructors, discountFee };
+        const data = { category, popularCategory, title, videoUrl, bannerImages: allImagesArray, subVideos: subVideosArray, courseFee, technologies: allTechnology, keyFeatures: allKeyFeatures, bulletPoints: allBulletPoint, instructors: allInstructors, discountFee };
 
         console.log(data);
         console.log('after data')
@@ -263,8 +265,9 @@ const AddCourse = () => {
                                             <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
                                             {/* add instructors  */}
                                             <AddInstructors allInstructors={allInstructors} setAllInstructors={setAllInstructors} />
-                                            {/* add bullet point  */}
-                                            <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
+                                        
+                                            {/* add bullet point  */}                                   
+                                            <AddBulletPoint allKeyFeatures={allBulletPoint} setAllKeyFeatures={setAllBulletPoint}/>
 
                                         </div>
 
