@@ -14,6 +14,7 @@ import AddTechnology from "../addCourse/AddTechnology";
 import KeyFeatures from "../addCourse/KeyFeatures";
 import AddInstructors from "../addCourse/AddInstructors";
 import Loading from "../../../Shared/Loading/Loading";
+import AddBulletPoint from "../addCourse/AddBulletPoint";
 
 
 const UpdateCoursePage = () => {
@@ -28,6 +29,8 @@ const UpdateCoursePage = () => {
     const [subVideoErr, setSubVideoErr] = useState('')
     const [allTechnology, setAllTechnology] = useState([])
     const [allKeyFeatures, setAllKeyFeatures] = useState([]);
+    const [allBulletPoint, setAllBulletPoint] = useState([]);
+
     const [allInstructors, setAllInstructors] = useState([])
     const { data: courseData = {}, refetch: courseDataRefetch, isLoading } = useQuery({
         queryKey: ['course', id],
@@ -53,6 +56,7 @@ const UpdateCoursePage = () => {
             setAllTechnology(courseData?.technologies || [])
             setSubVideos(courseData.subVideos || [])
             setAllKeyFeatures(courseData.keyFeatures || [])
+            setAllBulletPoint(courseData.bulletPoints || [])
             setAllInstructors(courseData?.instructors || [])
         }
     }, [courseData, isLoading])
@@ -141,7 +145,7 @@ const UpdateCoursePage = () => {
         //     const data = { category, image: imageUrl };
         //     return axiosPublic.post('/studentGallery', data);
         // });
-        const data = { category, popularCategory, title, videoUrl, bannerImages: allImagesArray, subVideos: subVideosArray, courseFee, technologies: allTechnology, keyFeatures: allKeyFeatures, instructors: allInstructors, discountFee };
+        const data = { category, popularCategory, title, videoUrl, bannerImages: allImagesArray, subVideos: subVideosArray, courseFee, technologies: allTechnology, keyFeatures: allKeyFeatures, bulletPoints: allBulletPoint, instructors: allInstructors, discountFee };
         console.log(data);
 
         axiosPublic.put(`/course/${id}`, data)
@@ -293,7 +297,8 @@ const UpdateCoursePage = () => {
                                             {/* add instructors  */}
                                             <AddInstructors allInstructors={allInstructors} setAllInstructors={setAllInstructors} />
 
-                                            <KeyFeatures allKeyFeatures={allKeyFeatures} setAllKeyFeatures={setAllKeyFeatures} />
+
+                                            <AddBulletPoint allKeyFeatures={allBulletPoint} setAllKeyFeatures={ setAllBulletPoint} />
 
                                         </div>
 
