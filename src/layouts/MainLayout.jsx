@@ -7,6 +7,7 @@ import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import NavBarDrawer from '../components/clientSide/Navbar/NavBarDrawer';
 import BottomNavbar from '../pages/clientSide/BottomNavbar/BottomNavbar';
 import WhatsAppButton from '../components/clientSide/WhatsAppButton';
+import UpdateNavbar from '../components/clientSide/Navbar/UpdateNavbar';
 
 const MainLayout = () => {
     const [open, setOpen] = useState(false);
@@ -21,7 +22,7 @@ const MainLayout = () => {
             <ScrollToTop />
             <AddressNavbar />
             <div className='sm:sticky top-0 z-40'>
-                <Navbar open={open} setOpen={setOpen} />
+                <Navbar/>
             </div>
             <div className='fixed bottom-0 left-0 w-full z-20 block sm:hidden'>
                 <BottomNavbar/>
