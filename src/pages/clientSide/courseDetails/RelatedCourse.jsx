@@ -32,15 +32,15 @@ const RelatedCourse = () => {
 
     const relatedCourses = filteredCourse?.slice(0, 3);
     return (
-        <div className=" py-5">
+        <div className=" -px-6  py-5">
             <h2 className='text-lg font-bold'>Related Courses</h2>
-            <div className='flex flex-col gap-5 py-5 overflow-hidden '>
+            <div className='flex flex-col gap-4 py-5 overflow-hidden  '>
                 {
-                    relatedCourses?.map((course, idx) => <div key={idx} className='flex flex-col sm:flex-row  gap-5 max-w-[500px]'>
-                        <img className='object-cover rounded-md sm:size-[130px]' src={course?.bannerImages[0] || ''} alt="" />
-                        <div className='flex flex-wrap  gap-5 lg:gap-0 justify-between w-full'>
+                    relatedCourses?.map((course, idx) => <div key={idx} className='flex flex-col sm:flex-row  gap-4 max-w-[600px]'>
+                        <img className='object-cover lg:w-[300px] rounded-md sm:size-[130px]' src={course?.bannerImages[0] || ''} alt="" />
+                        <div className='flex flex-wrap  gap-4 lg:gap-0 justify-between w-full'>
                             <div>
-                                <h2 className='font-bold'>{course?.title}</h2>
+                                <h2 className='font-bold text-sm '>{course?.title}</h2>
                                 <p className='text-sm'>{ course?.instructors[0]?.name }</p>
                                 <div className="text-base sm:text-xl text-primary">
                                     <Rating

@@ -134,7 +134,7 @@ const CourseDetailsTab = () => {
             </div>
 
             <p className="text-xs lg:text-4xl text-center text-secondary font-bold mt-5">What you will get <span className='text-primary'>from this course</span></p>
-            
+
             <div className="lg:my-8 ">
                 {/* <p className="text-primary font-bold text-xl lg:text-3xl text-center">Cerrtificate</p> */}
                 <div className="w-11/12 mx-auto flex justify-center mt-2">
@@ -147,12 +147,12 @@ const CourseDetailsTab = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 {filteredSuccessStories?.map(story =>
                     <div key={story?._id} className="border p-2 rounded-xl">
-                        <p className="font-body text-xs">{story?.description.slice(0, 300)}</p>
-                        <div className="avatar">
+                        <div className="avatar  ">
                             <div className="ring-primary ring-offset-base-100 w-14 mt-2 rounded-full ring ring-offset-2">
                                 <img src={story?.image} />
                             </div>
                         </div>
+                        <p className="font-body mt-2 text-xs">{story?.description.slice(0, 300)}</p>
                     </div>
                 )
 
