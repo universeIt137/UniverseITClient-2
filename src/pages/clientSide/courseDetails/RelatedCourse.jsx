@@ -37,7 +37,7 @@ const RelatedCourse = () => {
             <div className='flex flex-col gap-4 py-5 overflow-hidden  '>
                 {
                     relatedCourses?.map((course, idx) => <div key={idx} className='flex flex-col sm:flex-row  gap-4 max-w-[600px]'>
-                        <img className='object-cover lg:w-[300px] rounded-md sm:size-[130px]' src={course?.bannerImages[0] || ''} alt="" />
+                        <img className='object-cover lg:w-[200px] rounded-md sm:size-[130px]' src={course?.bannerImages[0] || ''} alt="" />
                         <div className='flex flex-wrap  gap-4 lg:gap-0 justify-between w-full'>
                             <div>
                                 <h2 className='font-bold text-sm '>{course?.title}</h2>
