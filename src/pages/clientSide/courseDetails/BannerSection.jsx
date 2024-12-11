@@ -17,7 +17,7 @@ const BannerSection = ({ filteredSuccessStories, courseData }) => {
 
     const { category, title, videoUrl, bannerImages = [], subVideos, notice, bangla, admissionNotice, courseFee, discountFee, technologies = [], keyFeatures = [], bulletPoints = [], instructors = [] } = courseData;
     const handleClick = () => {
-        window.location.href = `tel:+8801755450127`;
+        window.location.href = `tel:+8801886061401`;
     };
     // console.log(instructors);
 
