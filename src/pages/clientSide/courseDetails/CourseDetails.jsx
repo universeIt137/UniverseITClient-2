@@ -91,7 +91,7 @@ const CourseDetails = () => {
                                 </Link>
                             </button>
                            
-                        </div>
+                        </div>  
                     </div>
                 </div>
             )}

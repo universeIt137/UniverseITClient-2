@@ -16,7 +16,7 @@ const AddressNavbar = () => {
                     <p className={`${socialIconsStyle}`}><FaFacebookF /></p>
                 </Link>
 
-                <Link to={"https://www.linkedin.com/"} target="_blank">
+                <Link to={"https://www.linkedin.com/company/universe-it-institute/"} target="_blank">
                     <p className={`${socialIconsStyle}`}><FaLinkedinIn /></p>
                 </Link>
 

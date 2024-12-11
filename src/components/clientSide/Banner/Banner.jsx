@@ -22,9 +22,16 @@ const Banner = ({ bannerImg = '', data = {} }) => {
                             {firstTitle} <span className="text-primary">{secondTitle}</span>
                         </h1>
                         <p className='font-medium'>{data?.subtitle}</p>
-                        <div className="flex gap-5">
-                            <div className="h-max rounded-md" style={{ boxShadow: `0px 0px 50px 50px #F4940140` }}><Link to={'/courses'}><ButtonStrong text={'Get Started'} /></Link></div>
-                            <Link to={'/freeSeminar'}><ButtonLight text={'Join Free Seminar'} /></Link>
+                        <div className="flex gap-5 items-center">
+
+
+                            <div className="">
+                                <Link to={'/courses'}><ButtonStrong text={'Get Started'} /></Link>
+                            </div>
+                            <div className="">
+                                <Link to={'/freeSeminar'}><ButtonLight text={'Join Free Seminar'} /></Link>
+                            </div>
+
                         </div>
                     </div>
                 </div>
