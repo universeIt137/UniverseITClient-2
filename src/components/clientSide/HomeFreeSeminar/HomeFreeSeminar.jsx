@@ -66,14 +66,16 @@ const HomeFreeSeminar = () => {
                                             {returnDate(seminar?.date)}
                                         </p>
                                         <div className="w-full h-full bg-white lg:py-5 rounded-xl flex justify-between items-center flex-wrap gap-3 pl-3 sm:pl-5 pr-5 sm:pr-10 py-1">
-                                            <div>
+                                            <div className=" w-1/2 " >
                                                 <h2 className="text-[] sm:text-base font-bold">{seminar?.topic}</h2>
                                                 <p className="text-xs sm:text-sm font-medium">{weekDays[new Date(seminar?.date).getDay()] || 0} | Time: {returnTime(seminar?.time)}</p>
                                             </div>
-                                            <Link to={`/seminarForm/${seminar?._id}`}>
+                                            <div className=" " >
+                                                <Link to={`/seminarForm/${seminar?._id}`}>
 
-                                                <button className={`bg-primary/95 px-1 lg:px-6 py-[2px] mb-1 lg:py-2.5 text-sm lg:text-base rounded-md  text-white lg:font-bold flex justify-center items-center hover:bg-text_color hover:text-white transition-all duration-300 active:scale-90  `}>Register Now</button>
-                                            </Link>
+                                                    <button className={`bg-primary/95 px-1 lg:px-6 py-[2px] mb-1 lg:py-2.5 text-sm lg:text-base rounded-md  text-white lg:font-bold flex justify-center items-center hover:bg-text_color hover:text-white transition-all duration-300 active:scale-90  `}>Register Now</button>
+                                                </Link>
+                                            </div>
                                         </div>
 
                                     </div>

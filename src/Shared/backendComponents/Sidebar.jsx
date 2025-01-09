@@ -103,7 +103,7 @@ const Sidebar = () => {
       </>
     },
     {
-      name: 'Certificate',
+      name: 'Certificate Verification',
       data: <>
         <NavigationItem to="/dashboard/createCertificate" icon={MdAddCircle} label="Create Certificate" />
         <NavigationItem to="/dashboard/manageCertificate" icon={SiNginxproxymanager} label="Manage Certificate" />
