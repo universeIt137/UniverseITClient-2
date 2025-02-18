@@ -38,7 +38,7 @@ const UploadVideo = () => {
             let resp = await uploadAlert();
             if (resp.isConfirmed) {
                 setLoading(true)
-                let res = await axiosPublic.post("https://universe-it-server-5km4.vercel.app/video-upload", payload);
+                let res = await axiosPublic.post("https://universe-it-server-3s1s.vercel.app/video-upload", payload);
                 setLoading(false)
                 if (res) {
                     Swal.fire({

@@ -89,6 +89,7 @@ import PreviewBlogPage from "../pages/adminSide/representativeRelatedPages/blogR
 import SuccessStory from "../pages/clientSide/courseDetails/SuccessStory";
 import UploadVideo from "../pages/adminSide/videoGalleryPage/UploadVideo";
 import ManageVideo from "../pages/adminSide/videoGalleryPage/ManageVideo";
+import VideoUpdate from "../pages/adminSide/videoGalleryPage/VideoUpdate";
 
 
 const BasicRoutes = createBrowserRouter([
@@ -458,6 +459,11 @@ const BasicRoutes = createBrowserRouter([
             {
                 path: "manageVideo",
                 element : <ManageVideo></ManageVideo>
+            },
+
+            {
+                path: "video-update/:id",
+                element : <VideoUpdate></VideoUpdate>
             }
 
 
