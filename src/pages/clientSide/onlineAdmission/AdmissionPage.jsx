@@ -73,7 +73,7 @@ const AdmissionPage = () => {
                 <div className="card bg-base-100  shadow-xl border">
                     <figure className='h-1/2'>
                         <img
-                            src="https://res.cloudinary.com/dnvmj9pvk/image/upload/v1727672379/UniverseIT/Online%20Admission/xtkhcqphjjkq4w27dgxw.jpg"
+                            src="https://res.cloudinary.com/dxvacpgrv/image/upload/v1735806271/universeIT/kga4dufpvazdrzta3i3w.png"
                             alt="Bkash Merchant" className='w-1/2 lg:w-full' />
                     </figure>
                     <div className="card-body">
@@ -89,7 +89,7 @@ const AdmissionPage = () => {
                 <div className="card bg-base-100  shadow-xl border">
                     <figure className='h-1/2'>
                         <img
-                            src="https://res.cloudinary.com/dnvmj9pvk/image/upload/v1727672125/UniverseIT/Online%20Admission/afxsc8ixkiuvy4uf8rxo.png"
+                            src="https://res.cloudinary.com/dxvacpgrv/image/upload/v1735806320/universeIT/ksaiqyvdarabtgziioui.jpg"
                             alt="Nogod Merchant" className='w-1/2 lg:w-full' />
                     </figure>
                     <div className="card-body">
@@ -106,7 +106,7 @@ const AdmissionPage = () => {
                 <div className="card bg-base-100  shadow-xl border">
                     <figure className='h-1/2'>
                         <img
-                            src="https://res.cloudinary.com/dnvmj9pvk/image/upload/v1727672522/UniverseIT/Online%20Admission/koeopcfylhusnrzaw66h.webp"
+                            src="https://res.cloudinary.com/dxvacpgrv/image/upload/v1735806487/universeIT/urk15uz7zivifpwyb7du.jpg"
                             alt="DuchBangla Merchant" className='w-1/2 lg:w-full' />
                     </figure>
                     <div className="card-body">

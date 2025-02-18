@@ -86,6 +86,9 @@ import RepresentativeRegister from "../pages/clientSide/Register/RepresentativeR
 import Dashboard from "../pages/adminSide/dashboard/Dashbaord";
 import AllBlogsRepresentative from "../pages/adminSide/representativeRelatedPages/blogRelatedPages/AllBlogsRepresentative";
 import PreviewBlogPage from "../pages/adminSide/representativeRelatedPages/blogRelatedPages/PreviewBlogPage";
+import SuccessStory from "../pages/clientSide/courseDetails/SuccessStory";
+import UploadVideo from "../pages/adminSide/videoGalleryPage/UploadVideo";
+import ManageVideo from "../pages/adminSide/videoGalleryPage/ManageVideo";
 
 
 const BasicRoutes = createBrowserRouter([
@@ -147,6 +150,10 @@ const BasicRoutes = createBrowserRouter([
             },
             {
                 path: "/videoGallery",
+                element: <SuccessStoryPage />
+            },
+            {
+                path: "/successStory",
                 element: <SuccessStoryPage />
             },
 
@@ -440,6 +447,17 @@ const BasicRoutes = createBrowserRouter([
             {
                 path: "generate-certificate/:id",
                 element: <CertificateDownload></CertificateDownload>
+            },
+            
+            // video related route
+
+            {
+                path: "uploadVideo",
+                element : <UploadVideo></UploadVideo>
+            },
+            {
+                path: "manageVideo",
+                element : <ManageVideo></ManageVideo>
             }
 
 

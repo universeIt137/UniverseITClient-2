@@ -80,7 +80,7 @@ const SuccessStories = ({ isHomePage = false }) => {
                                 <ButtonStrong text={seeMore ? 'View Less' : 'View All'} />
                             </div>
                         ) : (
-                            <Link to={'/successStory'}>
+                            <Link to={'/videoGallery'}>
                                 <div className="w-max">
                                     <ButtonStrong text={'View All'} />
                                 </div>
