@@ -127,6 +127,13 @@ const Sidebar = () => {
       data: <>
         <NavigationItem to="/dashboard/manageUsers" icon={GrUserSettings} label="Manage Users" />
       </>
+    },
+    {
+      name: 'Video Gallery',
+      data: <>
+        <NavigationItem to="/dashboard/uploadVideo" icon={GrUserSettings} label="Upload Video" />
+        <NavigationItem to="/dashboard/manageVideo" icon={GrUserSettings} label="ManageVideo Video" />
+      </>
     }
   ];
 
