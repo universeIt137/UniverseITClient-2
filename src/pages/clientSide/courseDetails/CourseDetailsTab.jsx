@@ -99,7 +99,6 @@ const CourseDetailsTab = () => {
 
 
 
-    console.log(courseSemesters);
 
 
     return (
