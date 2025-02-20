@@ -1,18 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import ComponentsTitle from "../../../Shared/ComponentsTitle/ComponentsTitle";
-import demoVideo1 from '../../../assets/demoVideo/demo1.mp4';
-import demoVideo2 from '../../../assets/demoVideo/demo2.mp4';
-import demoVideo3 from '../../../assets/demoVideo/demo3.mp4';
-import { IoPlayCircleSharp } from "react-icons/io5";
+
 import ButtonStrong from "../../../Shared/Button/ButtonStrong";
 import { Link } from "react-router-dom";
 import VideoPlayingModal from "../../../Shared/VideoPlayingModal";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Loading from "../../../Shared/Loading/Loading";
-import SuccessStory from "../../../pages/clientSide/courseDetails/SuccessStory";
 import SuccessCard from "./SuccessCard";
+import axios from "axios";
 
 
 
@@ -20,14 +16,14 @@ const SuccessStories = ({ isHomePage = false }) => {
 
     const [seeMore, setSeeMore] = useState(false);
     const [modalVideoSrc, setModalVideoSrc] = useState(null);
-    const axiosPublic = useAxiosPublic();
     const { data: successStories = [], refetch, isLoading } = useQuery({
         queryKey: ['successStory'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/successStory');
+            const res = await axios.get('https://universe-it-server-3s1s.vercel.app/all-video');
             return res.data;
         }
     });
+    console.log(successStories)
     if (isLoading) {
         return <Loading />
     }

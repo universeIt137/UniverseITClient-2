@@ -56,7 +56,7 @@ const SuccessCard = ({ filteredSuccessStories }) => {
                                 {/* Thumbnail Image */}
                                 <div className="avatar hidden lg:block">
                                     <div className="ring-primary ring-offset-base-100 w-12 m-5 rounded-full ring ring-offset-2 ">
-                                        <img src={story?.image} alt="Success Story" className='' />
+                                        <img src={story?.banner_img} alt="Success Story" className='' />
                                     </div>
                                 </div>
                                 <div className="p-4">
